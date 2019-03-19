@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PrivateLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AUTHOR">
+          <Key>
+            <PropertyRef Name="IDOFAUTHOR" />
+          </Key>
+          <Property Name="IDOFAUTHOR" Type="int" Nullable="false" />
+          <Property Name="IDOFNATIONALITY" Type="int" Nullable="false" />
+          <Property Name="NAMEOFATUTHOR" Type="char" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BELONGING">
+          <Key>
+            <PropertyRef Name="IDOFBOOK" />
+            <PropertyRef Name="IDOFGENRE" />
+          </Key>
+          <Property Name="IDOFBOOK" Type="int" Nullable="false" />
+          <Property Name="IDOFGENRE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BELONGING2">
+          <Key>
+            <PropertyRef Name="IDOFLANGUAGE" />
+            <PropertyRef Name="IDOFBOOK" />
+          </Key>
+          <Property Name="IDOFLANGUAGE" Type="int" Nullable="false" />
+          <Property Name="IDOFBOOK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BOOK">
+          <Key>
+            <PropertyRef Name="IDOFBOOK" />
+          </Key>
+          <Property Name="IDOFBOOK" Type="int" Nullable="false" />
+          <Property Name="ISBNNUMBER" Type="int" Nullable="false" />
+          <Property Name="TITLE" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="char" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GENRE">
+          <Key>
+            <PropertyRef Name="IDOFGENRE" />
+          </Key>
+          <Property Name="IDOFGENRE" Type="int" Nullable="false" />
+          <Property Name="NAMEOFGENRE" Type="char" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LANGUAGE">
+          <Key>
+            <PropertyRef Name="IDOFLANGUAGE" />
+          </Key>
+          <Property Name="IDOFLANGUAGE" Type="int" Nullable="false" />
+          <Property Name="NAMEOFTHELANGUAGE" Type="char" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NATIONALITY">
+          <Key>
+            <PropertyRef Name="IDOFNATIONALITY" />
+          </Key>
+          <Property Name="IDOFNATIONALITY" Type="int" Nullable="false" />
+          <Property Name="NAMEOFNATIONALITY" Type="char" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="WRITHER">
+          <Key>
+            <PropertyRef Name="IDOFBOOK" />
+            <PropertyRef Name="IDOFAUTHOR" />
+          </Key>
+          <Property Name="IDOFBOOK" Type="int" Nullable="false" />
+          <Property Name="IDOFAUTHOR" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AUTHOR_NATIONALITY">
+          <End Role="NATIONALITY" Type="Self.NATIONALITY" Multiplicity="1" />
+          <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NATIONALITY">
+              <PropertyRef Name="IDOFNATIONALITY" />
+            </Principal>
+            <Dependent Role="AUTHOR">
+              <PropertyRef Name="IDOFNATIONALITY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BELONGING_BOOK">
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
+          <End Role="BELONGING" Type="Self.BELONGING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="IDOFBOOK" />
+            </Principal>
+            <Dependent Role="BELONGING">
+              <PropertyRef Name="IDOFBOOK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BELONGING_GENRE">
+          <End Role="GENRE" Type="Self.GENRE" Multiplicity="1" />
+          <End Role="BELONGING" Type="Self.BELONGING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRE">
+              <PropertyRef Name="IDOFGENRE" />
+            </Principal>
+            <Dependent Role="BELONGING">
+              <PropertyRef Name="IDOFGENRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BELONGING2_BOOK">
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
+          <End Role="BELONGING2" Type="Self.BELONGING2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="IDOFBOOK" />
+            </Principal>
+            <Dependent Role="BELONGING2">
+              <PropertyRef Name="IDOFBOOK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BELONGING2_LANGUAGE">
+          <End Role="LANGUAGE" Type="Self.LANGUAGE" Multiplicity="1" />
+          <End Role="BELONGING2" Type="Self.BELONGING2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LANGUAGE">
+              <PropertyRef Name="IDOFLANGUAGE" />
+            </Principal>
+            <Dependent Role="BELONGING2">
+              <PropertyRef Name="IDOFLANGUAGE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WRITHER_AUTHOR">
+          <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
+          <End Role="WRITHER" Type="Self.WRITHER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AUTHOR">
+              <PropertyRef Name="IDOFAUTHOR" />
+            </Principal>
+            <Dependent Role="WRITHER">
+              <PropertyRef Name="IDOFAUTHOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WRITHER_BOOK">
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
+          <End Role="WRITHER" Type="Self.WRITHER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="IDOFBOOK" />
+            </Principal>
+            <Dependent Role="WRITHER">
+              <PropertyRef Name="IDOFBOOK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PrivateLibraryModelStoreContainer">
+          <EntitySet Name="AUTHOR" EntityType="Self.AUTHOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BELONGING" EntityType="Self.BELONGING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BELONGING2" EntityType="Self.BELONGING2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BOOK" EntityType="Self.BOOK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GENRE" EntityType="Self.GENRE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LANGUAGE" EntityType="Self.LANGUAGE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NATIONALITY" EntityType="Self.NATIONALITY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WRITHER" EntityType="Self.WRITHER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AUTHOR_NATIONALITY" Association="Self.FK_AUTHOR_NATIONALITY">
+            <End Role="NATIONALITY" EntitySet="NATIONALITY" />
+            <End Role="AUTHOR" EntitySet="AUTHOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BELONGING_BOOK" Association="Self.FK_BELONGING_BOOK">
+            <End Role="BOOK" EntitySet="BOOK" />
+            <End Role="BELONGING" EntitySet="BELONGING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BELONGING_GENRE" Association="Self.FK_BELONGING_GENRE">
+            <End Role="GENRE" EntitySet="GENRE" />
+            <End Role="BELONGING" EntitySet="BELONGING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BELONGING2_BOOK" Association="Self.FK_BELONGING2_BOOK">
+            <End Role="BOOK" EntitySet="BOOK" />
+            <End Role="BELONGING2" EntitySet="BELONGING2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BELONGING2_LANGUAGE" Association="Self.FK_BELONGING2_LANGUAGE">
+            <End Role="LANGUAGE" EntitySet="LANGUAGE" />
+            <End Role="BELONGING2" EntitySet="BELONGING2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WRITHER_AUTHOR" Association="Self.FK_WRITHER_AUTHOR">
+            <End Role="AUTHOR" EntitySet="AUTHOR" />
+            <End Role="WRITHER" EntitySet="WRITHER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WRITHER_BOOK" Association="Self.FK_WRITHER_BOOK">
+            <End Role="BOOK" EntitySet="BOOK" />
+            <End Role="WRITHER" EntitySet="WRITHER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PrivateLibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AUTHOR">
+          <Key>
+            <PropertyRef Name="IDOFAUTHOR" />
+          </Key>
+          <Property Name="IDOFAUTHOR" Type="Int32" Nullable="false" />
+          <Property Name="IDOFNATIONALITY" Type="Int32" Nullable="false" />
+          <Property Name="NAMEOFATUTHOR" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="NATIONALITY" Relationship="Self.FK_AUTHOR_NATIONALITY" FromRole="AUTHOR" ToRole="NATIONALITY" />
+          <NavigationProperty Name="BOOKs" Relationship="Self.WRITHER" FromRole="AUTHOR" ToRole="BOOK" />
+        </EntityType>
+        <EntityType Name="BOOK">
+          <Key>
+            <PropertyRef Name="IDOFBOOK" />
+          </Key>
+          <Property Name="IDOFBOOK" Type="Int32" Nullable="false" />
+          <Property Name="ISBNNUMBER" Type="Int32" Nullable="false" />
+          <Property Name="TITLE" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="GENREs" Relationship="Self.BELONGING" FromRole="BOOK" ToRole="GENRE" />
+          <NavigationProperty Name="LANGUAGEs" Relationship="Self.BELONGING2" FromRole="BOOK" ToRole="LANGUAGE" />
+          <NavigationProperty Name="AUTHORs" Relationship="Self.WRITHER" FromRole="BOOK" ToRole="AUTHOR" />
+        </EntityType>
+        <EntityType Name="GENRE">
+          <Key>
+            <PropertyRef Name="IDOFGENRE" />
+          </Key>
+          <Property Name="IDOFGENRE" Type="Int32" Nullable="false" />
+          <Property Name="NAMEOFGENRE" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BOOKs" Relationship="Self.BELONGING" FromRole="GENRE" ToRole="BOOK" />
+        </EntityType>
+        <EntityType Name="LANGUAGE">
+          <Key>
+            <PropertyRef Name="IDOFLANGUAGE" />
+          </Key>
+          <Property Name="IDOFLANGUAGE" Type="Int32" Nullable="false" />
+          <Property Name="NAMEOFTHELANGUAGE" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BOOKs" Relationship="Self.BELONGING2" FromRole="LANGUAGE" ToRole="BOOK" />
+        </EntityType>
+        <EntityType Name="NATIONALITY">
+          <Key>
+            <PropertyRef Name="IDOFNATIONALITY" />
+          </Key>
+          <Property Name="IDOFNATIONALITY" Type="Int32" Nullable="false" />
+          <Property Name="NAMEOFNATIONALITY" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AUTHORs" Relationship="Self.FK_AUTHOR_NATIONALITY" FromRole="NATIONALITY" ToRole="AUTHOR" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_AUTHOR_NATIONALITY">
+          <End Role="NATIONALITY" Type="Self.NATIONALITY" Multiplicity="1" />
+          <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NATIONALITY">
+              <PropertyRef Name="IDOFNATIONALITY" />
+            </Principal>
+            <Dependent Role="AUTHOR">
+              <PropertyRef Name="IDOFNATIONALITY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BELONGING">
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+          <End Role="GENRE" Type="Self.GENRE" Multiplicity="*" />
+        </Association>
+        <Association Name="BELONGING2">
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+          <End Role="LANGUAGE" Type="Self.LANGUAGE" Multiplicity="*" />
+        </Association>
+        <Association Name="WRITHER">
+          <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="*" />
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="PrivateLibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AUTHORs" EntityType="Self.AUTHOR" />
+          <EntitySet Name="BOOKs" EntityType="Self.BOOK" />
+          <EntitySet Name="GENREs" EntityType="Self.GENRE" />
+          <EntitySet Name="LANGUAGEs" EntityType="Self.LANGUAGE" />
+          <EntitySet Name="NATIONALITies" EntityType="Self.NATIONALITY" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_AUTHOR_NATIONALITY" Association="Self.FK_AUTHOR_NATIONALITY">
+            <End Role="NATIONALITY" EntitySet="NATIONALITies" />
+            <End Role="AUTHOR" EntitySet="AUTHORs" />
+          </AssociationSet>
+          <AssociationSet Name="BELONGING" Association="Self.BELONGING">
+            <End Role="BOOK" EntitySet="BOOKs" />
+            <End Role="GENRE" EntitySet="GENREs" />
+          </AssociationSet>
+          <AssociationSet Name="BELONGING2" Association="Self.BELONGING2">
+            <End Role="BOOK" EntitySet="BOOKs" />
+            <End Role="LANGUAGE" EntitySet="LANGUAGEs" />
+          </AssociationSet>
+          <AssociationSet Name="WRITHER" Association="Self.WRITHER">
+            <End Role="AUTHOR" EntitySet="AUTHORs" />
+            <End Role="BOOK" EntitySet="BOOKs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PrivateLibraryModelStoreContainer" CdmEntityContainer="PrivateLibraryEntities">
+          <EntitySetMapping Name="AUTHORs">
+            <EntityTypeMapping TypeName="PrivateLibraryModel.AUTHOR">
+              <MappingFragment StoreEntitySet="AUTHOR">
+                <ScalarProperty Name="IDOFAUTHOR" ColumnName="IDOFAUTHOR" />
+                <ScalarProperty Name="IDOFNATIONALITY" ColumnName="IDOFNATIONALITY" />
+                <ScalarProperty Name="NAMEOFATUTHOR" ColumnName="NAMEOFATUTHOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BOOKs">
+            <EntityTypeMapping TypeName="PrivateLibraryModel.BOOK">
+              <MappingFragment StoreEntitySet="BOOK">
+                <ScalarProperty Name="IDOFBOOK" ColumnName="IDOFBOOK" />
+                <ScalarProperty Name="ISBNNUMBER" ColumnName="ISBNNUMBER" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GENREs">
+            <EntityTypeMapping TypeName="PrivateLibraryModel.GENRE">
+              <MappingFragment StoreEntitySet="GENRE">
+                <ScalarProperty Name="IDOFGENRE" ColumnName="IDOFGENRE" />
+                <ScalarProperty Name="NAMEOFGENRE" ColumnName="NAMEOFGENRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LANGUAGEs">
+            <EntityTypeMapping TypeName="PrivateLibraryModel.LANGUAGE">
+              <MappingFragment StoreEntitySet="LANGUAGE">
+                <ScalarProperty Name="IDOFLANGUAGE" ColumnName="IDOFLANGUAGE" />
+                <ScalarProperty Name="NAMEOFTHELANGUAGE" ColumnName="NAMEOFTHELANGUAGE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NATIONALITies">
+            <EntityTypeMapping TypeName="PrivateLibraryModel.NATIONALITY">
+              <MappingFragment StoreEntitySet="NATIONALITY">
+                <ScalarProperty Name="IDOFNATIONALITY" ColumnName="IDOFNATIONALITY" />
+                <ScalarProperty Name="NAMEOFNATIONALITY" ColumnName="NAMEOFNATIONALITY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PrivateLibraryModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BELONGING" TypeName="PrivateLibraryModel.BELONGING" StoreEntitySet="BELONGING">
+            <EndProperty Name="BOOK">
+              <ScalarProperty Name="IDOFBOOK" ColumnName="IDOFBOOK" />
+            </EndProperty>
+            <EndProperty Name="GENRE">
+              <ScalarProperty Name="IDOFGENRE" ColumnName="IDOFGENRE" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="BELONGING2" TypeName="PrivateLibraryModel.BELONGING2" StoreEntitySet="BELONGING2">
+            <EndProperty Name="BOOK">
+              <ScalarProperty Name="IDOFBOOK" ColumnName="IDOFBOOK" />
+            </EndProperty>
+            <EndProperty Name="LANGUAGE">
+              <ScalarProperty Name="IDOFLANGUAGE" ColumnName="IDOFLANGUAGE" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="WRITHER" TypeName="PrivateLibraryModel.WRITHER" StoreEntitySet="WRITHER">
+            <EndProperty Name="AUTHOR">
+              <ScalarProperty Name="IDOFAUTHOR" ColumnName="IDOFAUTHOR" />
+            </EndProperty>
+            <EndProperty Name="BOOK">
+              <ScalarProperty Name="IDOFBOOK" ColumnName="IDOFBOOK" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

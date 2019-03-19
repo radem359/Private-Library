@@ -1,0 +1,84 @@
+﻿@model PrivateLibrary.Models.BOOK
+
+@{
+    ViewBag.Title = "Create new Book";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+<script type="text/javascript" src="~/Scripts/CreateBook.js"></script>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TITLE)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.TITLE, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TITLE, "", new { @class = "text-danger" })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.DESCRIPTION, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DESCRIPTION, "", new { @class = "text-danger" })
+        </dd>
+
+            <div class="form-group">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <b>Authors: </b>
+                            @Html.DropDownList("Authors", null, htmlAttributes: new { size = "10", Multiple = "multiple", style = "width:150px;height : 200px" })
+                        </div>
+                        <div class="col-sm-2 btn-group-vertical">
+                            <br><br><br>
+                            <button type="button" class="btn btn-primary btn-md" id="choose">Choose</button>
+                            <button type="button" class="btn btn-primary btn-md" id="remove">Remove</button>
+                        </div>
+                        <br>
+                        <div class="col-sm-2">
+                            <b>Choosen Authors:</b><br>
+                            <select id="ChoosenAuthors" name="ChoosenAuthors" size="10" Multiple="multiple" style="width:150px;height : 200px"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <dt>
+            <b>Choose Genre:</b>
+        </dt>
+        <dd>
+            @Html.DropDownList("Genres", null, null, htmlAttributes: new { @class = "form-control" })
+        </dd>
+
+        <dt>
+            <b>Choose Language:</b>
+        </dt>
+        <dd>
+            @Html.DropDownList("Languages", null, null, htmlAttributes: new { @class = "form-control" })
+        </dd>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+        </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "TableOfBooks")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

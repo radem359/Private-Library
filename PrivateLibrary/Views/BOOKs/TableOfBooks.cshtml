@@ -1,0 +1,96 @@
+﻿@model IEnumerable<PrivateLibrary.Models.BOOK>
+
+@{
+    ViewBag.Title = "Table of books";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br>
+        <h3>
+            @Html.ActionLink("Create New", "Create")
+        </h3>
+
+@using (Html.BeginForm("FilterBy", "BOOKs"))
+{
+    <center>
+        <h2>Filter books:</h2>
+        <table>
+            <tr>
+                <th>
+                    <select name="FilterBy">
+                        <option value="Author">Author</option>
+                        <option value="Genre">Genre</option>
+                        <option value="Language">Language</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="text" name="Typed" />
+                </th>
+                <th>
+                    <button type="submit">Filter</button>
+                </th>
+            </tr>
+        </table>
+    </center>
+}
+<br>
+
+<br>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ISBNNUMBER)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TITLE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AUTHORs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LANGUAGEs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GENREs)
+        </th>
+        <th>
+            Options:
+        </th>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @item.ISBNNUMBER
+            </th>
+            <th>
+                @item.TITLE
+            </th>
+            <th>
+                @item.DESCRIPTION
+            </th>
+            <th>
+                <select id="Authors" name="Authors">
+                    @foreach (var author in item.AUTHORs)
+                    {
+                        <option> @author.NAMEOFATUTHOR </option>
+                    }
+                </select>
+            </th>
+            <th>
+               @item.LANGUAGEs.First().NAMEOFTHELANGUAGE
+            </th>
+            <th>
+                @item.GENREs.First().NAMEOFGENRE
+            </th>
+            <th>
+                @Html.ActionLink("Update", "Update", new { id = item.IDOFBOOK }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IDOFBOOK }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IDOFBOOK })
+            </th>
+        </tr>
+    }
+</table>
+

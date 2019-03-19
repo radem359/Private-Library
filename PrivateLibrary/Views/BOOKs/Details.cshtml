@@ -1,0 +1,78 @@
+﻿@model PrivateLibrary.Models.BOOK
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BOOK</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ISBNNUMBER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ISBNNUMBER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TITLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TITLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPTION)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GENREs)
+        </dt>
+        <dd>
+            <select id="Genres" name="Genres">
+                @foreach (var genre in Model.GENREs)
+                {
+                    <option> @genre.NAMEOFGENRE </option>
+                }
+            </select>
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AUTHORs)
+        </dt>
+        <dd>
+            <select id="Authors" name="Authors">
+                @foreach (var genre in Model.AUTHORs)
+                {
+                    <option> @genre.NAMEOFATUTHOR </option>
+                }
+            </select>
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LANGUAGEs)
+        </dt>
+        <dd>
+            <select id="Languages" name="Languages">
+                @foreach (var genre in Model.LANGUAGEs)
+                {
+                    <option> @genre.NAMEOFTHELANGUAGE </option>
+                }
+            </select>
+
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDOFBOOK }) |
+    @Html.ActionLink("Back to List", "TableOfBooks")
+</p>

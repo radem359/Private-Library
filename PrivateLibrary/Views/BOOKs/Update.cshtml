@@ -1,0 +1,81 @@
+﻿@model PrivateLibrary.Models.BOOK
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Update</h2>
+
+<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+<script type="text/javascript" src="~/Scripts/CreateBook.js"></script>
+
+@using (Html.BeginForm("UpdateInBase", "BOOKs"))
+{
+    <fieldset>
+            <h3>BOOK @Model.TITLE</h3>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.TITLE)
+                </dt>
+
+                <dd>
+                    <input type="text" class="form-control" name="TITLE" value="@Model.TITLE" />
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DESCRIPTION)
+                </dt>
+
+                <dd>
+                    <input type="text" class="form-control" name="DESCRIPTION" value="@Model.DESCRIPTION" />
+                </dd>
+                <div class="form-group">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <b>Authors: </b>
+                                @Html.DropDownList("Authors", null, htmlAttributes: new { size = "10", Multiple = "multiple", style = "width:150px;height : 200px" })
+                            </div>
+                            <div class="col-sm-2 btn-group-vertical">
+                                <br><br><br>
+                                <button type="button" class="btn btn-primary btn-md" id="choose">Choose</button>
+                                <button type="button" class="btn btn-primary btn-md" id="remove">Remove</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <b>Choosen Authors:</b><br>
+                                @Html.DropDownList("ChoosenAuthors", null, htmlAttributes: new { size = "10", Multiple = "multiple", style = "width:150px;height : 200px" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <dt>
+                    <b>Choose Genre:</b>
+                </dt>
+                <dd>
+                    @Html.DropDownList("Genres", null, null, htmlAttributes: new { @value = Model.GENREs.First().NAMEOFGENRE , @class = "form-control" })
+                </dd>
+
+                <dt>
+                    <b>Choose Language:</b>
+                </dt>
+                <dd>
+                    @Html.DropDownList("Languages", null, null, htmlAttributes: new { @value = Model.LANGUAGEs.First().NAMEOFTHELANGUAGE , @class = "form-control" })
+                </dd>
+
+            </dl>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn-primary" value="@Model.IDOFBOOK" name="id">Update</button>
+            </div>
+        </div>
+        </fieldset>
+        }
+
+@Html.ActionLink("Back to List", "TableOfBooks")
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

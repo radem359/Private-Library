@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PrivateLibrary.Models.AUTHOR>
+
+@{
+    ViewBag.Title = "Table Of Authors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Table Of Authors</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NAMEOFATUTHOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NATIONALITY.NAMEOFNATIONALITY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BOOKs)
+        </th>
+        <th>
+            Options:
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NAMEOFATUTHOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NATIONALITY.NAMEOFNATIONALITY)
+        </td>
+        <td>
+            <select id="Books" name="Books">
+                @foreach (var book in item.BOOKs)
+                {
+                    <option> @book.TITLE </option>
+                }
+            </select>
+
+        </td>
+        <td>
+            @Html.ActionLink("Update", "Update", new { id=item.IDOFAUTHOR }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDOFAUTHOR })
+        </td>
+    </tr>
+}
+
+</table>

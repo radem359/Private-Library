@@ -1,0 +1,27 @@
+﻿@model PrivateLibrary.Models.LANGUAGE
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LANGUAGE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NAMEOFTHELANGUAGE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NAMEOFTHELANGUAGE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDOFLANGUAGE }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

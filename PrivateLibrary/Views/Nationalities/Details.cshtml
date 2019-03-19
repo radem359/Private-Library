@@ -1,0 +1,27 @@
+﻿@model PrivateLibrary.Models.NATIONALITY
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NATIONALITY</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NAMEOFNATIONALITY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NAMEOFNATIONALITY)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDOFNATIONALITY }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
